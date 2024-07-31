@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 carouselContainer.style.transition = 'transform 0.5s ease'; // Reativa a transição
                 showSlide(currentIndex + 1); // Mostra a segunda imagem
-            }, 50); // Tempo mínimo para garantir que a transição foi desativada
+            }, 3000); // Tempo mínimo para garantir que a transição foi desativada
         } else if (index < 0) {
             currentIndex = slides.length - 1;
             carouselContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
