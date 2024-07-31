@@ -1,8 +1,8 @@
-// Função para o carrossel
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.carousel-slide');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
+    const carouselContainer = document.querySelector('.carousel-container');
     let currentIndex = 0;
 
     function showSlide(index) {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentIndex = index;
         }
         const newTransform = `translateX(-${currentIndex * 100}%)`;
-        document.querySelector('.carousel-container').style.transform = newTransform;
+        carouselContainer.style.transform = newTransform;
     }
 
     prevBtn.addEventListener('click', () => {
@@ -23,6 +23,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     nextBtn.addEventListener('click', () => {
         showSlide(currentIndex + 1);
+    });
+
+    function autoSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    let slideInterval = setInterval(autoSlide, 3000);
+
+    carouselContainer.addEventListener('mouseover', () => {
+        clearInterval(slideInterval);
+    });
+
+    carouselContainer.addEventListener('mouseout', () => {
+        slideInterval = setInterval(autoSlide, 3000);
     });
 
     showSlide(currentIndex);
