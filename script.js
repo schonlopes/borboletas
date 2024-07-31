@@ -8,14 +8,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showSlide(index) {
         if (index >= slides.length) {
+            carouselContainer.style.transition = 'none'; // Desativa a transição para o salto
+            carouselContainer.style.transform = `translateX(0%)`; // Move para a primeira imagem
             currentIndex = 0;
+            setTimeout(() => {
+                carouselContainer.style.transition = 'transform 0.5s ease'; // Reativa a transição
+                showSlide(currentIndex + 1); // Mostra a segunda imagem
+            }, 50); // Tempo mínimo para garantir que a transição foi desativada
         } else if (index < 0) {
             currentIndex = slides.length - 1;
+            carouselContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
         } else {
             currentIndex = index;
+            carouselContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
-        const newTransform = `translateX(-${currentIndex * 100}%)`;
-        carouselContainer.style.transform = newTransform;
     }
 
     function startAutoSlide() {
