@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.querySelector('.next-btn');
     const carouselContainer = document.querySelector('.carousel-container');
     let currentIndex = 0;
+    let slideInterval;
 
     function showSlide(index) {
         if (index >= slides.length) {
@@ -17,6 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
         carouselContainer.style.transform = newTransform;
     }
 
+    function startAutoSlide() {
+        slideInterval = setInterval(() => {
+            showSlide(currentIndex + 1);
+        }, 3000);
+    }
+
     prevBtn.addEventListener('click', () => {
         showSlide(currentIndex - 1);
     });
@@ -25,21 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(currentIndex + 1);
     });
 
-    function autoSlide() {
-        showSlide(currentIndex + 1);
-    }
-
-    let slideInterval = setInterval(autoSlide, 3000);
-
     carouselContainer.addEventListener('mouseover', () => {
         clearInterval(slideInterval);
     });
 
     carouselContainer.addEventListener('mouseout', () => {
-        slideInterval = setInterval(autoSlide, 3000);
+        startAutoSlide();
     });
 
     showSlide(currentIndex);
+    startAutoSlide();
 
     // Formulário
     const form = document.querySelector('form');
